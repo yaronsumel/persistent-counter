@@ -35,5 +35,5 @@ Usage of persistent-counter:
   -port string
         port to bind (default ":8080")
   -window int
-        time window (default 60)
+        time window in seconds (default 60)
 ```        
