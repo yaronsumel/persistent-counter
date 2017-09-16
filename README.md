@@ -24,3 +24,13 @@ $ go get github.com/yaronsumel/persistent-counter
 ```bash 
 $ persistent-counter --debug
 ```
+
+### Usage 
+```bash
+$ persistent-counter --help
+ Usage of persistent-counter:
+  -debug
+        show some information
+  -journal string
+        path to your journal file [no file will create one] (default "journal.data")
+```        
