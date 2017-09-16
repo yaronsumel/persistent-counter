@@ -25,6 +25,14 @@ $ go get github.com/yaronsumel/persistent-counter
 $ persistent-counter --debug
 ```
 
+### Test it 
+
+Open your browser to http://localhost:8080 .. or create some heat
+
+```bash
+ab -n 100 -c 5 http://localhost:8080/
+``` 
+
 ### Usage 
 ```bash
 Usage of persistent-counter:
