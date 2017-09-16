@@ -27,10 +27,9 @@ $ persistent-counter --debug
 
 ### Usage 
 ```bash
-$ persistent-counter --help
- Usage of persistent-counter:
+Usage of persistent-counter:
   -debug
         show some information
   -journal string
-        path to your journal file [no file will create one] (default "journal.data")
+        path to your journal file [no file will create one] (default "/tmp/journal.data")
 ```        
