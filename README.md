@@ -32,4 +32,8 @@ Usage of persistent-counter:
         show some information
   -journal string
         path to your journal file [no file will create one] (default "/tmp/journal.data")
+  -port string
+        port to bind (default ":8080")
+  -window int
+        time window (default 60)
 ```        
