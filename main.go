@@ -10,13 +10,12 @@ import (
 	"github.com/yaronsumel/persistent-counter/journal"
 )
 
-const (
-	basePath = "/"
-	window   = time.Second * 60
-)
+const basePath = "/"
 
 // journal is the journal file path
 var journalPath = flag.String("journal", "/tmp/journal.data", "path to your journal file [no file will create one]")
+var port = flag.String("port", ":8080", "port to bind")
+var window = flag.Int64("window", 60, "time window")
 var debug = flag.Bool("debug", false, "show some information")
 
 func main() {
@@ -29,7 +28,7 @@ func main() {
 
 	log.Debug("loading journal file:", *journalPath)
 	// load journal
-	j, err := journal.Load(*journalPath, window)
+	j, err := journal.Load(*journalPath, time.Duration(*window)*time.Second)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,8 +49,8 @@ func main() {
 		fmt.Fprintf(w, "Counter: %d", j.Counter())
 	})
 
-	log.Info("listening on :8080")
+	log.Infof("listening on %s", *port)
 	// serve on :8080
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(*port, mux))
 
 }
