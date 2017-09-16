@@ -24,6 +24,7 @@ $ go get github.com/yaronsumel/persistent-counter
 ```bash 
 $ persistent-counter --debug
 ```
+> make sure that your journal file has the right permissions..
 
 ### Test it 
 
