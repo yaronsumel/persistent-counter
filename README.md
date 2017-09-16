@@ -11,7 +11,7 @@ Once started it will try to open journal file, if it is not located it should cr
 
 ### Prerequisites
 
-Go > 1.9 (making use of sync.map)
+Go > 1.9 (making use of `sync.map`)
 
 ### Install
 
