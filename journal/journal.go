@@ -26,7 +26,7 @@ type journal struct {
 // Load loads the journal file into memory and process it
 func Load(path string, window time.Duration) (*journal, error) {
 	// open the journal file or create it with 777 permissions :P
-	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_RDWR, 777)
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0777)
 	if err != nil {
 		return nil, err
 	}
@@ -122,20 +122,20 @@ func (j *journal) Append(t time.Time, writeToFile bool) {
 		ch: time.After(j.window),
 	}
 	j.entriesMap.Store(je.id, je)
-	go j.Listen(je.id, je.ch)
+	go j.Listen(je)
 }
 
 // Sync sync journal entries every t (duration)
-func (j *journal) Listen(id string, tCh <-chan time.Time) {
+func (j *journal) Listen(je entry) {
 	for {
 		select {
-		case <-tCh:
+		case <-je.ch:
 			log.Debug("Got time.after chan message... Remove from journal")
-			if val, ok := j.entriesMap.Load(id); ok {
+			if val, ok := j.entriesMap.Load(je.id); ok {
 				if e, ok := val.(entry); ok {
 					if time.Now().Sub(e.t) > j.window {
 						// remove from map
-						j.entriesMap.Delete(id)
+						j.entriesMap.Delete(je.id)
 						// decrement the counter
 						atomic.AddUint64(&j.counter, ^uint64(0))
 					}

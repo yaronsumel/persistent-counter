@@ -16,7 +16,7 @@ const (
 )
 
 // journal is the journal file path
-var journalPath = flag.String("journal", "journal.data", "path to your journal file [no file will create one]")
+var journalPath = flag.String("journal", "/tmp/journal.data", "path to your journal file [no file will create one]")
 var debug = flag.Bool("debug", false, "show some information")
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 
 	log.Debug("loading journal file:", *journalPath)
 	// load journal
-	j, err := journal.Load(*journalPath,window)
+	j, err := journal.Load(*journalPath, window)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,7 +47,7 @@ func main() {
 		// append entry to journal
 		j.Append(time.Now(), true)
 		// return the latest counter
-		fmt.Fprintf(w, "Counter: %o", j.Counter())
+		fmt.Fprintf(w, "Counter: %d", j.Counter())
 	})
 
 	log.Info("listening on :8080")
