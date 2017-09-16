@@ -48,4 +48,4 @@ Usage of persistent-counter:
 
 ### TBD
 
-[] Unit Testing
+- [ ] Unit Testing
