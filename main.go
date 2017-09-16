@@ -15,7 +15,7 @@ const basePath = "/"
 // journal is the journal file path
 var journalPath = flag.String("journal", "/tmp/journal.data", "path to your journal file [no file will create one]")
 var port = flag.String("port", ":8080", "port to bind")
-var window = flag.Int64("window", 60, "time window")
+var window = flag.Int64("window", 60, "time window in seconds")
 var debug = flag.Bool("debug", false, "show some information")
 
 func main() {
