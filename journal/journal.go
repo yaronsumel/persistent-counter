@@ -102,7 +102,8 @@ func (j *journal) Close() error {
 
 // Append append time entry to journal
 func (j *journal) Append(t time.Time, writeToFile bool) {
-	log.Debugf("append %s to journal", t.String())
+	cleanupDuration := j.window - time.Now().Sub(t)
+	log.Debugf("append %s to journal ==> Scheduled clean up in %s", t.String(), cleanupDuration)
 	if writeToFile {
 		// encode time to []byte
 		b, err := t.GobEncode()
@@ -119,7 +120,7 @@ func (j *journal) Append(t time.Time, writeToFile bool) {
 	je := entry{
 		id: randId(),
 		t:  t,
-		ch: time.After(j.window),
+		ch: time.After(cleanupDuration),
 	}
 	j.entriesMap.Store(je.id, je)
 	go j.Listen(je)
